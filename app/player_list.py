@@ -49,9 +49,12 @@ class PlayerList:
     def delete_player_from_head(self):
         if(self.is_empty()):
             return
-        else:
+        
+        if self.current.next:
             self.current = self.current.next
             self.current.previous = None
+        else:
+            self.current = None
 
     def delete_player_from_last(self):
         if(self.is_empty()):
@@ -68,25 +71,31 @@ class PlayerList:
             nonlocal key_found
             nonlocal no_key
 
-            if player.next == None :
-                if player.key == key:
-                    player.previous.next = None
-                    key_found = True
-                    return
-                else:
-                    no_key = True
-                    return
-            
             if player.key == key:
-                player.previous.next = player.next
-                player.next.previous = player.previous
+                if player == self._head:
+                    if player.next:
+                        self._head = player.next
+                        player.next.previous = None
+                    else:
+                        self._head = None
+                
+                if player == self._last:
+                    if player.previous:
+                        self._last = player.previous
+                        player.previous.next = None
+                    else:
+                        self._last = None
+                
+                if player.next and player.previous:
+                    player.previous.next = player.next
+                    player.next.previous = player.previous
+                    
                 key_found = True
                 return
             else:
                 find_key(player.next)
-            
-        while not key_found and not no_key:
-            find_key(self.current)
+    
+        find_key(self.current)
 
         if key_found: 
             print(f'player deleted at key: {key}')
@@ -111,7 +120,7 @@ class PlayerList:
         nodes = []
         current_node = self._head
         while current_node:
-            nodes.append(f'{current_node.key}')
+            nodes.append(f'{current_node.key}, {current_node.name}')
             current_node = current_node.next
         return f'player list: {', '.join(nodes)}'
     
