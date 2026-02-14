@@ -1,0 +1,10 @@
+#Envoriment vars
+venv/
+.venv/
+
+#Pycache
+__pycache__/
+*.pyc
+
+#VS code Debug options
+.vscode/
