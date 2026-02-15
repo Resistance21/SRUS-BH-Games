@@ -15,8 +15,12 @@ class Player:
             return self.uid == other.uid
         return self.uid == other
     
+    @classmethod
+    def string_or_player_hash(cls, key: str) -> int:
+        return hash(int(key))
+
     def __hash__(self):
-        return hash(self.uid) 
+        return self.string_or_player_hash(self.uid) 
     
     def __str__(self) -> str:
         return f"Player ID: {self._uid}, with the name of: {self._name}"

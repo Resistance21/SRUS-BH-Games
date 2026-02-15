@@ -3,8 +3,8 @@ from .player import Player
 
 class PlayerList:
     def __init__(self):
-        self._head = None
-        self._last = None
+        self._head : PlayerNode | None = None
+        self._last: PlayerNode | None = None
         self.display = True
 
     def is_empty(self):
@@ -13,11 +13,11 @@ class PlayerList:
         return False
     
     @property
-    def current(self):
+    def head(self):
         return self._head
     
-    @current.setter
-    def current(self, player_node:PlayerNode | None):
+    @head.setter
+    def head(self, player_node:PlayerNode | None):
         self._head = player_node
     
     @property
@@ -30,16 +30,16 @@ class PlayerList:
     
     def insert_node(self, player : PlayerNode):
         if(self.is_empty()):
-            self.current = player
+            self.head = player
             self.last = player
         else:
-            self.current.previous = player
-            player.next = self.current
-            self.current = player
+            self.head.previous = player
+            player.next = self.head
+            self.head = player
 
     def insert_node_last(self,player: PlayerNode):
         if(self.is_empty()):
-            self.current = player
+            self.head = player
             self.last = player
         else:
             player.previous = self.last
@@ -50,11 +50,11 @@ class PlayerList:
         if(self.is_empty()):
             return
         
-        if self.current.next:
-            self.current = self.current.next
-            self.current.previous = None
+        if self.head.next:
+            self.head = self.head.next
+            self.head.previous = None
         else:
-            self.current = None
+            self.head = None
 
     def delete_player_from_last(self):
         if(self.is_empty()):
@@ -95,7 +95,7 @@ class PlayerList:
             else:
                 find_key(player.next)
     
-        find_key(self.current)
+        find_key(self.head)
 
         if key_found: 
             print(f'player deleted at key: {key}')
@@ -105,7 +105,7 @@ class PlayerList:
     def forward(self,forward = True):
         nodes = []
         if forward:
-            current_node = self.current
+            current_node = self.head
             while current_node:
                 nodes.append(f'Player key: {current_node.key} Player Name: {current_node.name}')
                 current_node = current_node.next

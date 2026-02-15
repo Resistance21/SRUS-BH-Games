@@ -33,6 +33,9 @@ class PlayerNode:
     @property
     def key(self):
         return self._player.uid
+    @property
+    def player(self):
+        return self._player
     
     def __str__(self)-> str:
         return f"Player node:\nprevious node: {self.previous}\nnext_node: {self.next}\nPlayer name: {self.name}\nPlayer ID: {self.key}"
