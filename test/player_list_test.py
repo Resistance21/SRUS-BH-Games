@@ -33,18 +33,18 @@ class TestPlayerList(unittest.TestCase):
 
     def test_player_list_one_player(self):
         self.player_list.insert_node(self.player_node_one)
-        self.assertEqual(self.player_list.current, self.player_node_one)
+        self.assertEqual(self.player_list.head, self.player_node_one)
 
     def test_player_list_two_player(self):
         self.player_list.insert_node(self.player_node_one)
         self.player_list.insert_node(self.player_node_two)
-        self.assertEqual(self.player_list.current, self.player_node_two)
-        self.assertEqual(self.player_list.current.next, self.player_node_one)
+        self.assertEqual(self.player_list.head, self.player_node_two)
+        self.assertEqual(self.player_list.head.next, self.player_node_one)
 
     def test_insert_at_head(self):
         self.player_list.insert_node(self.player_node_one)
         self.player_list.insert_node(self.player_node_two)
-        self.assertEqual(self.player_list.current, self.player_node_two)
+        self.assertEqual(self.player_list.head, self.player_node_two)
 
     def test_insert_at_last(self):
         self.player_list.insert_node_last(self.player_node_one)
@@ -58,7 +58,7 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_node(self.player_node_four)
         self.player_list.insert_node(self.player_node_five)
         self.player_list.delete_player_from_head()
-        self.assertEqual(self.player_list.current, self.player_node_four)
+        self.assertEqual(self.player_list.head, self.player_node_four)
 
     def test_delete_node_from_last(self):
         self.player_list.insert_node(self.player_node_one)
@@ -78,22 +78,23 @@ class TestPlayerList(unittest.TestCase):
         #self.player_list.insert_node(self.player_node_five)
         #self.player_list.insert_node(self.player_node_five)
         self.player_list.delete_player_at_key('3')
+        example_list = PlayerList()
+        real_list = PlayerList()
+        example_list.head_node = self.example_player_list.head
+        real_list.head_node = self.player_list.head
 
-        example_list_current_node = self.example_player_list.current
-        real_list_current_node = self.player_list.current
-
-        while example_list_current_node.next and real_list_current_node.next:
-            self.assertEqual(example_list_current_node, real_list_current_node)
-            example_list_current_node = example_list_current_node.next
-            real_list_current_node = real_list_current_node.next
+        while example_list.head_node.next and real_list.head_node.next:
+            self.assertEqual(example_list.head_node, real_list.head_node)
+            example_list.head_node = example_list.head_node.next
+            real_list.head_node = real_list.head_node.next
 
 """         def list_loop(example_list: PlayerList, real_list: PlayerList):
-            if example_list.current == None:
-                self.assertEqual(example_list.current, self.player_list.last)
+            if example_list.head == None:
+                self.assertEqual(example_list.head, self.player_list.last)
                 return
             else:
-                self.assertEqual(example_list.current, real_list.current)
-                list_loop(example_list.current.next, real_list.current.next)
+                self.assertEqual(example_list.head, real_list.head)
+                list_loop(example_list.head.next, real_list.head.next)
     
         list_loop(self.example_player_list, self.player_list) """
 
