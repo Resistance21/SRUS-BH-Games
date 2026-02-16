@@ -13,7 +13,7 @@ class PlayerHashMap:
             if player_list.is_empty():
                 continue
             
-            if player_list.head.next == None:
+            if player_list.head.next is None:
                 player_count += 1
                 continue
             
@@ -21,7 +21,7 @@ class PlayerHashMap:
             while current_node.next is not None:
                 player_count += 1
                 current_node = current_node.next
-                if current_node.next == None:
+                if current_node.next is None:
                     player_count += 1
 
         return player_count
@@ -31,19 +31,20 @@ class PlayerHashMap:
     
     def __setitem__(self, key: str, name: str):
         new_player = Player(key, name)
-        hash_index = self.get_index(new_player)
+        # hash_index = self.get_index(PlayerNode(new_player))
+        hash_index = self.get_index(key)
         player_list = self.hashmap[hash_index]
         key_found = False
 
         if player_list.is_empty():
-            player_list.insert_node(new_player)
+            player_list.insert_node(PlayerNode(new_player))
             return
         
         if player_list.head.key == key:
             player_list.head.name = name
             return
         
-        if player_list.head.next == None:
+        if player_list.head.next is None:
             return
 
         current_node = player_list.head
@@ -54,7 +55,7 @@ class PlayerHashMap:
                 key_found = True
                 return
 
-        self.hashmap[hash_index].insert_node(new_player)
+        self.hashmap[hash_index].insert_node(PlayerNode(new_player))
 
     def __delitem__(self, key: str):
         hash_index = self.get_index(key)
@@ -65,11 +66,22 @@ class PlayerHashMap:
         
         player_list.delete_player_at_key(key)
 
-    def get_index(self, key: str | Player) -> int:
+    def get_index(self, key: str | PlayerNode) -> int:
         if isinstance(key, PlayerNode):
             return hash(key.player) % self.SIZE
         else:
             return Player.string_or_player_hash(key) % self.SIZE
+
+    def display(self):
+        for index, player_list in enumerate(self.hashmap):
+            if player_list.is_empty():
+                continue
+
+            print(f'Player list at index: {index}')
+            player_list.display()
+            print('\n')
+
+
 
 player_map = PlayerHashMap()
 
@@ -88,20 +100,21 @@ player_9= PlayerNode(Player('57','test player 2'))
 player_10 = PlayerNode(Player('67','test player 2'))
 player_11 = PlayerNode(Player('87','test player 2'))
 
-print(player_map.get_index(player_1))
-print(player_map.get_index(player_2))
-print(player_map.get_index(player_3))
-print(player_map.get_index(player_4))
-print(player_map.get_index(player_5))
-print(player_map.get_index(player_6))
-print(player_map.get_index(player_7))
-print(player_map.get_index(player_8))
-print(player_map.get_index(player_9))
-print(player_map.get_index(player_10))
-print(player_map.get_index(player_11))
-
-print(player_map[player_map.get_index(player_1)])
-player_map[player_map.get_index(player_1)].insert_node(player_1)
+# print(player_map.get_index(player_1))
+# print(player_map.get_index(player_2))
+# print(player_map.get_index(player_3))
+# print(player_map.get_index(player_4))
+# print(player_map.get_index(player_5))
+# print(player_map.get_index(player_6))
+# print(player_map.get_index(player_7))
+# print(player_map.get_index(player_8))
+# print(player_map.get_index(player_9))
+# print(player_map.get_index(player_10))
+# print(player_map.get_index(player_11))
+#
+# print(player_map[player_map.get_index(player_1)])
+# player_map[player_map.get_index(player_1)].insert_node(player_1)
+player_map[player_map.get_index(player_1)] = player_1.player
 player_map[player_map.get_index(player_2)].insert_node(player_2)
 player_map[player_map.get_index(player_3)].insert_node(player_3)
 player_map[player_map.get_index(player_4)].insert_node(player_4)
@@ -112,5 +125,7 @@ player_map[player_map.get_index(player_8)].insert_node(player_8)
 player_map[player_map.get_index(player_9)].insert_node(player_9)
 player_map[player_map.get_index(player_10)].insert_node(player_10)
 player_map[player_map.get_index(player_11)].insert_node(player_11)
+
+player_map.display()
 
 print(len(player_map))
