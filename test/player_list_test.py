@@ -79,8 +79,6 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_node(self.player_node_three)
         self.player_list.insert_node(self.player_node_four)
         self.player_list.insert_node(self.player_node_five)
-        #self.player_list.insert_node(self.player_node_five)
-        #self.player_list.insert_node(self.player_node_five)
         self.player_list.delete_player_at_key('3')
         example_list = PlayerList()
         real_list = PlayerList()
@@ -92,15 +90,33 @@ class TestPlayerList(unittest.TestCase):
             example_list.head_node = example_list.head_node.next
             real_list.head_node = real_list.head_node.next
 
-"""         def list_loop(example_list: PlayerList, real_list: PlayerList):
-            if example_list.head == None:
-                self.assertEqual(example_list.head, self.player_list.last)
-                return
-            else:
-                self.assertEqual(example_list.head, real_list.head)
-                list_loop(example_list.head.next, real_list.head.next)
-    
-        list_loop(self.example_player_list, self.player_list) """
+    def test_delete_node_at_key_when_only_one_node(self):
+        self.player_list.insert_node(self.player_node_one)
+        self.player_list.delete_player_at_key('1')
+
+        self.assertEqual(self.player_list.is_empty(), True)
+
+    def test_delete_node_at_key_when_key_is_at_head(self):
+        self.player_list.insert_node(self.player_node_one)
+        self.player_list.insert_node(self.player_node_two)
+        self.player_list.insert_node(self.player_node_three)
+        self.player_list.insert_node(self.player_node_four)
+        self.player_list.insert_node(self.player_node_five)
+        self.player_list.delete_player_at_key('5')
+
+        self.assertEqual(self.player_list.head.key, '4')
+
+    def test_delete_node_at_key_when_key_is_at_last(self):
+        self.player_list.insert_node(self.player_node_one)
+        self.player_list.insert_node(self.player_node_two)
+        self.player_list.insert_node(self.player_node_three)
+        self.player_list.insert_node(self.player_node_four)
+        self.player_list.insert_node(self.player_node_five)
+        self.player_list.delete_player_at_key('1')
+
+        self.assertEqual(self.player_list.last.key, '2')
+
+
 
 if __name__ == '__main__':
     unittest.main()

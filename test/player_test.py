@@ -16,11 +16,6 @@ class TestPlayerClass(unittest.TestCase):
     def test_player_id(self):
         self.assertEqual(self.player.uid, '32')
 
-class TestPlayerList(unittest.TestCase):
-    def setUp(self):
-        super().setUp()
-        player_list_empty = PlayerList()
-
 
 if __name__ == '__main__':
     unittest.main()

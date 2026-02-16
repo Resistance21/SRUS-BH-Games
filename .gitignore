@@ -8,3 +8,6 @@ __pycache__/
 
 #VS code Debug options
 .vscode/
+
+#Pycharm added folders
+.idea/
