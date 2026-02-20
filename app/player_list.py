@@ -6,7 +6,6 @@ class PlayerList:
     def __init__(self):
         self._head : PlayerNode | None = None
         self._last: PlayerNode | None = None
-        self.display = True
 
     def is_empty(self):
         if self._head is None:
@@ -103,7 +102,7 @@ class PlayerList:
         if no_key:
             print(f'no player found with key: {key}')
     
-    def forward(self,forward = True):
+    def display(self,forward = True):
         nodes = []
         if forward:
             current_node = self.head
