@@ -7,23 +7,28 @@ class PlayerList:
     def __init__(self):
         self._head : PlayerNode | None = None
         self._last: PlayerNode | None = None
+
     #checks if plist is currently empty
     def is_empty(self):
         if self._head is None:
             return True
         return False
+    
     # gets and returns the current head of the list
     @property
     def head(self):
         return self._head
+    
     #set the current head of the list
     @head.setter
     def head(self, player_node:PlayerNode | None):
         self._head = player_node
+
     #gets and returns the last of the list
     @property
     def last(self):
         return self._last
+    
     #set the last of the list
     @last.setter
     def last(self, player_node:PlayerNode | None):
@@ -38,6 +43,7 @@ class PlayerList:
             self.head.previous = player
             player.next = self.head
             self.head = player
+
     #inserts a node at the end of the current list
     def insert_node_last(self,player: PlayerNode):
         if self.is_empty():
@@ -47,6 +53,7 @@ class PlayerList:
             player.previous = self.last
             self.last.next = player
             self.last = player
+
     #delets a player node from the beginning of the list
     def delete_player_from_head(self):
         if self.is_empty() :
@@ -57,6 +64,7 @@ class PlayerList:
             self.head.previous = None
         else:
             self.head = None
+
     #deletes are player node from the last of the list
     def delete_player_from_last(self):
         if self.is_empty() :
@@ -65,7 +73,7 @@ class PlayerList:
             self.last.previous.next = None
             self.last = self.last.previous
     '''
-        delets are node a the given key
+        deletes are node a the given key
         it performs the check with a recursive lookup through the 
         current list till it either finds the key or not.
         returning are success of failure message.
@@ -123,7 +131,7 @@ class PlayerList:
                 nodes.append(f'Player key: {current_node.key} Player Name: {current_node.name}')
                 current_node = current_node.previous
         print(f'player list:\n{'\n'.join(nodes)}')
-        
+
     #string representation of the list
     def __str__(self):
         nodes = []
