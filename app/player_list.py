@@ -57,7 +57,7 @@ class PlayerList:
             self.head = None
 
     def delete_player_from_last(self):
-        if(self.is_empty()):
+        if self.is_empty():
             return
         else:
             self.last.previous.next = None

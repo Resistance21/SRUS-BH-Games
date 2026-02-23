@@ -29,33 +29,35 @@ class PlayerHashMap:
     def __getitem__(self, key: int):
         return self.hashmap[key]
     
-    def __setitem__(self, key: str, name: str):
-        new_player = Player(key, name)
+    def __setitem__(self, key: int | str, player_node: str | PlayerNode):
+        # new_player = Player(key, name)
         # hash_index = self.get_index(PlayerNode(new_player))
+        player_key = player_node.key
         hash_index = self.get_index(key)
         player_list = self.hashmap[hash_index]
         key_found = False
 
         if player_list.is_empty():
-            player_list.insert_node(PlayerNode(new_player))
+            player_list.insert_node(player_node)
             return
         
-        if player_list.head.key == key:
-            player_list.head.name = name
+        if player_list.head.key == player_node.key:
+            player_list.head.name = player_node.name
             return
         
-        if player_list.head.next is None:
-            return
+        # if player_list.head.next is None:
+        #     return
 
         current_node = player_list.head
         while not key_found:
             current_node = current_node.next
-            if current_node.key == key:
-                current_node.name = name
-                key_found = True
+            if current_node is None:
+                 break
+            if current_node.key == player_node.key:
+                current_node.name = player_node.name
                 return
 
-        self.hashmap[hash_index].insert_node(PlayerNode(new_player))
+        self.hashmap[hash_index].insert_node(player_node)
 
     def __delitem__(self, key: str):
         hash_index = self.get_index(key)
@@ -99,6 +101,7 @@ player_8 = PlayerNode(Player('47','test player 2'))
 player_9= PlayerNode(Player('57','test player 2'))
 player_10 = PlayerNode(Player('67','test player 2'))
 player_11 = PlayerNode(Player('87','test player 2'))
+player_12 = PlayerNode(Player('87','updated player name'))
 
 # print(player_map.get_index(player_1))
 # print(player_map.get_index(player_2))
@@ -114,17 +117,19 @@ player_11 = PlayerNode(Player('87','test player 2'))
 #
 # print(player_map[player_map.get_index(player_1)])
 # player_map[player_map.get_index(player_1)].insert_node(player_1)
-player_map[player_map.get_index(player_1)] = player_1.player
-player_map[player_map.get_index(player_2)].insert_node(player_2)
-player_map[player_map.get_index(player_3)].insert_node(player_3)
-player_map[player_map.get_index(player_4)].insert_node(player_4)
-player_map[player_map.get_index(player_5)].insert_node(player_5)
-player_map[player_map.get_index(player_6)].insert_node(player_6)
-player_map[player_map.get_index(player_7)].insert_node(player_7)
-player_map[player_map.get_index(player_8)].insert_node(player_8)
-player_map[player_map.get_index(player_9)].insert_node(player_9)
-player_map[player_map.get_index(player_10)].insert_node(player_10)
-player_map[player_map.get_index(player_11)].insert_node(player_11)
+player_map[player_map.get_index(player_1)] = player_1
+player_map[player_map.get_index(player_2)] = player_2
+player_map[player_map.get_index(player_3)]= player_3
+player_map[player_map.get_index(player_4)]= player_4
+player_map[player_map.get_index(player_5)] = player_5
+player_map[player_map.get_index(player_6)] = player_6
+player_map[player_map.get_index(player_7)] = player_7
+player_map[player_map.get_index(player_8)] = player_8
+player_map[player_map.get_index(player_9)] = player_9
+player_map[player_map.get_index(player_10)] = player_10
+player_map[player_map.get_index(player_11)] = player_11
+player_map[player_map.get_index(player_12)] = player_12
+del player_map['67']
 
 player_map.display()
 
