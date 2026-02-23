@@ -54,7 +54,7 @@ class PlayerList:
             self.last.next = player
             self.last = player
 
-    #delets a player node from the beginning of the list
+    #deletes a player node from the beginning of the list
     def delete_player_from_head(self):
         if self.is_empty() :
             return
@@ -65,7 +65,7 @@ class PlayerList:
         else:
             self.head = None
 
-    #deletes are player node from the last of the list
+    #deletes a player node from the last of the list
     def delete_player_from_last(self):
         if self.is_empty() :
             return

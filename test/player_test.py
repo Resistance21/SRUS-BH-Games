@@ -16,6 +16,10 @@ class TestPlayerClass(unittest.TestCase):
     def test_player_id(self):
         self.assertEqual(self.player.uid, '32')
 
+    def test_player_str_print(self):
+        self.assertEqual(str(self.player),
+        "Player ID: 32, with the name of: test")
+
 
 if __name__ == '__main__':
     unittest.main()
