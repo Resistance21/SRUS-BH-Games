@@ -1,16 +1,15 @@
 """
 player class test cases
-to  run test use 
+to  run test use
 while in root folder
 python -m unittest -v test.player_test
 """
 import unittest
 from app.player import Player
-from app.player_list import PlayerList
-from app.player_node import PlayerNode
+
 
 class TestPlayerClass(unittest.TestCase):
-    #set up date to be used for all tests
+    # set up date to be used for all tests
     def setUp(self):
         self.player = Player('32', 'test')
 
@@ -22,7 +21,7 @@ class TestPlayerClass(unittest.TestCase):
 
     def test_player_str_print(self):
         self.assertEqual(str(self.player),
-        "Player ID: 32, with the name of: test")
+                         "Player ID: 32, with the name of: test")
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 """
 Player list test cases
-to run test use 
+to run test use
 while in root folder
 python -m unittest -v test.player_list_test
 """
@@ -10,9 +10,10 @@ from app.player import Player
 from app.player_list import PlayerList
 from app.player_node import PlayerNode
 
+
 class TestPlayerList(unittest.TestCase):
     def setUp(self):
-        #setting up data that can be used for all tests
+        # setting up data that can be used for all tests
         super().setUp()
         self.player_list = PlayerList()
         self.player_one = Player('1', 'player one')
@@ -31,7 +32,7 @@ class TestPlayerList(unittest.TestCase):
         self.example_player_list.insert_node(self.player_node_two)
         self.example_player_list.insert_node(self.player_node_four)
         self.example_player_list.insert_node(self.player_node_five)
-         
+
     def test_is_player_list_empty_true(self):
         self.assertEqual(self.player_list.is_empty(), True)
 
@@ -89,8 +90,8 @@ class TestPlayerList(unittest.TestCase):
         example_list.head_node = self.example_player_list.head
         real_list.head_node = self.player_list.head
 
-        #looping through eample list and real list
-        #checking each node matches
+        # looping through eample list and real list
+        # checking each node matches
         while example_list.head_node.next and real_list.head_node.next:
             self.assertEqual(example_list.head_node, real_list.head_node)
             example_list.head_node = example_list.head_node.next
@@ -129,14 +130,14 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_node(self.player_node_four)
         self.player_list.insert_node(self.player_node_five)
 
-        #expected outcome from display return
+        # expected outcome from display return
         expected_outcome = ("player list:\n"
-            "Player key: 5 Player Name: player five\n"
-            "Player key: 4 Player Name: player four\n"
-            "Player key: 3 Player Name: player three\n"
-            "Player key: 2 Player Name: player two\n"
-            "Player key: 1 Player Name: player one"
-        )
+                            "Player key: 5 Player Name: player five\n"
+                            "Player key: 4 Player Name: player four\n"
+                            "Player key: 3 Player Name: player three\n"
+                            "Player key: 2 Player Name: player two\n"
+                            "Player key: 1 Player Name: player one"
+                            )
         self.assertEqual(expected_outcome, self.player_list.display())
 
     def test_display_text_forawrd_false(self):
@@ -146,14 +147,14 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_node(self.player_node_four)
         self.player_list.insert_node(self.player_node_five)
 
-        #expected outcome from display return
+        # expected outcome from display return
         expected_outcome = ("player list:\n"
-            "Player key: 1 Player Name: player one\n"
-            "Player key: 2 Player Name: player two\n"
-            "Player key: 3 Player Name: player three\n"
-            "Player key: 4 Player Name: player four\n"
-            "Player key: 5 Player Name: player five"
-        )
+                            "Player key: 1 Player Name: player one\n"
+                            "Player key: 2 Player Name: player two\n"
+                            "Player key: 3 Player Name: player three\n"
+                            "Player key: 4 Player Name: player four\n"
+                            "Player key: 5 Player Name: player five"
+                            )
         self.assertEqual(expected_outcome, self.player_list.display(False))
 
 
