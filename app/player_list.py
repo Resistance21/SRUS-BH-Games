@@ -74,46 +74,56 @@ class PlayerList:
         else:
             self.last.previous.next = None
             self.last = self.last.previous
+
+    def find_player(self, key: str, player: PlayerNode):
+        if player.key == key:
+            return True
+
+        if player == self.last:
+            return True
+
+        if player.next is not None:
+            return self.find_player(key, player.next)
+
+        return False
     '''
         deletes are node a the given key
         it performs the check with a recursive lookup through the
         current list till it either finds the key or not.
         returning are success of failure message.
     '''
+
     def delete_player_at_key(self, key: str):
-        key_found = False
-        # no_key = False
-        # recursive function
+        key_found = self.find_player(key, self.head)
 
-        def find_key(player: PlayerNode):
-            nonlocal key_found
-            # nonlocal no_key
+        if key_found:
+            if self.head.key == key:
+                if self.head.next:
+                    self.head = self.head.next
+                    self.head.previous = None
+                    return True
+                else:
+                    self.head = None
+                    return True
 
-            if player.key == key:
-                if player == self._head:
-                    if player.next:
-                        self._head = player.next
-                        player.next.previous = None
-                    else:
-                        self._head = None
+            if self.last.key == key:
+                self.last = self.last.previous
+                self.last.next = None
+                return True
 
-                if player == self._last:
-                    if player.previous:
-                        self._last = player.previous
-                        player.previous.next = None
-                    else:
-                        self._last = None
+            temp_player = self.head.next
 
-                if player.next and player.previous:
-                    player.previous.next = player.next
-                    player.next.previous = player.previous
+            while (temp_player):
+                if temp_player.key == key:
+                    temp_player.previous.next = temp_player.next
+                    temp_player.next.previous = temp_player.previous
+                    temp_player = None
+                    return True
+                else:
+                    temp_player = temp_player.next
 
-                key_found = True
-                return
-            else:
-                find_key(player.next)
-        # start of recursion
-        find_key(self.head)
+            return False
+
         # success and fail messages
         if key_found:
             print(f'player deleted at key: {key}')

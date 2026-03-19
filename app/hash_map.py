@@ -31,7 +31,7 @@ class PlayerHashMap:
     def __getitem__(self, key: int):
         return self.hashmap[key]
 
-    def __setitem__(self, key: int | str, player_node: str | PlayerNode):
+    def __setitem__(self, key: str, name: str):
         # new_player = Player(key, name)
         # hash_index = self.get_index(PlayerNode(new_player))
         # player_key = player_node.key
