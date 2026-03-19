@@ -76,11 +76,11 @@ class PlayerList:
             self.last = self.last.previous
 
     def find_player(self, key: str, player: PlayerNode):
-        if player.key == key:
+        if player.key == str(key):
             return True
 
         if player == self.last:
-            return True
+            return False
 
         if player.next is not None:
             return self.find_player(key, player.next)
