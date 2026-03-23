@@ -23,6 +23,21 @@ class TestPlayerClass(unittest.TestCase):
         self.assertEqual(str(self.player),
                          "Player ID: 32, with the name of: test")
 
+    def test_sort_players(self):
+        players = [Player(name="Alice", uid='01', score=10), Player(name="Bob", uid='02', score=5),
+                   Player(name="Charlie", uid='03', score=15)]
+        # note: ensure initialization code is valid for **your** implementation.
+        # For example, is your parameter called uid? is the first parameter name?
+
+        # do **not** change the following code:
+        sorted_players = sorted(players)
+
+        # players must be sorted by score as shown here:
+        manually_sorted_players = [Player(name="Bob", uid='02', score=5), Player(name="Alice", uid='01', score=10),
+                                   Player(name="Charlie", uid='03', score=15)]
+
+        self.assertListEqual(sorted_players, manually_sorted_players)
+
 
 if __name__ == '__main__':
     unittest.main()

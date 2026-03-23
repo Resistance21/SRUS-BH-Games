@@ -97,7 +97,11 @@ def test_sort_players(self):
 What was the outcome of running the above unit test, copy paste the output **for just this particular test** below:
 
 ```text
-Copy the traceback you got when you ran the test here.
+Traceback (most recent call last):
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\test\player_test.py", line 33, in test_sort_players
+    sorted_players = sorted(players)
+                     ^^^^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'Player' and 'Player'
 ```
 
 ### 4.3. Success criteria
