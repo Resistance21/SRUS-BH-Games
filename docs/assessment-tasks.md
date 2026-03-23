@@ -170,13 +170,30 @@ TypeError: '>' not supported between instances of 'Player' and 'Player'
 Rerun `test_sort_players` does the test pass? If not, include the output below:
 
 ```text
-Your output here
+======================================================================
+FAIL: test_sort_players (test.player_test.TestPlayerClass.test_sort_players)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\test\player_test.py", line 39, in test_sort_players
+    self.assertListEqual(sorted_players, manually_sorted_players)
+AssertionError: Lists differ: [<pro[144 chars] object at 0x0000018B8E9967F0>(name='Charlie, uid=03, score=15] != [<pro[144 chars] object at 0x0000018B8E9967F0>(name='Charlie, uid=03, score=15]
+
+First differing element 0:
+<property object at 0x0000018B8E9967F0>(name='Bob, uid=02, score=5
+<property object at 0x0000018B8E9967F0>(name='Bob, uid=02, score=5
+
+  [<property object at 0x0000018B8E9967F0>(name='Bob, uid=02, score=5,
+   <property object at 0x0000018B8E9967F0>(name='Alice, uid=01, score=10,
+   <property object at 0x0000018B8E9967F0>(name='Charlie, uid=03, score=15]
+
+----------------------------------------------------------------------
 ```
 
 ##### 4.3.4.1 Question: why did the equality comparison fail?
 Why did the test fail (note: if it doesn't fail, it means there is something you have already done before you were asked to do so - if that's the case, you need to figure out what that is!)?
 -------
-> Answer here
+> The test still fails for the sorted(players) becuase the player class has not defined the dunder method __eq__ which gives
+> it the ability to compare itself to other objects that meet the matching criteria.
 >
 -------
 Add the necessary code to the Player class to ensure that the `test_sort_players` test passes.
