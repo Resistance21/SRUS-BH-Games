@@ -236,7 +236,11 @@ def sort_quickly(arr):
 
 What is the expected time and space complexity of the above algorithm? You can answer using big O or in plain English but in both cases you MUST justify your answer.
 
-> Answer here
+> the time complexity for this algorithm is average case: O(n log n), best case: O(n log n) and for its worse case: O(n^2)
+> its average and best case are when the pivot point is not either the smallest or largest score in the list which means he scores
+> can be broken down in each recursion layer, where as the worst case is when the pivot is the largest or smalled number which means that each
+> recursive layer only one item is removed resulting in the n^2 result.
+> its space complexity is: O(n) as the algorithm goes through each element in the list
 
 ### 5.2. Task: Implement the custom sorting algorithm
 
@@ -251,7 +255,19 @@ Add a separate test case to `test_player.py` to test your custom sorting algorit
 Include your code below:
 
 ```python
-# YOUR CUSTOM Sorting here
+@classmethod
+    def sort_scores_descending(cls, arr):
+        if len(arr) <= 1:
+            return arr
+        pivot = arr[0]
+        left = []
+        right = []
+        for x in arr[1:]:
+            if x > pivot:
+                left.append(x)
+            else:
+                right.append(x)
+        return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
 ```
 
 #### 5.2.3. Success criteria

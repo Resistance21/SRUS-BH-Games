@@ -33,6 +33,20 @@ class Player:
     def string_or_player_hash(cls, key: str) -> int:
         return hash(int(key))
 
+    @classmethod
+    def sort_scores_descending(cls, arr):
+        if len(arr) <= 1:
+            return arr
+        pivot = arr[0]
+        left = []
+        right = []
+        for x in arr[1:]:
+            if x > pivot:
+                left.append(x)
+            else:
+                right.append(x)
+        return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
+
     def __hash__(self):
         return self.string_or_player_hash(self.uid)
 

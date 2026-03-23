@@ -50,6 +50,17 @@ class TestPlayerClass(unittest.TestCase):
         # or, event better
         self.assertGreater(alice, bob)
 
+    def test_sort_player_scores_descending(self):
+        players = [Player(name="Alice", uid='01', score=25), Player(name="Bob", uid='02', score=35),
+                   Player(name="Charlie", uid='03', score=5)]
+
+        sorted_player_scores = Player.sort_scores_descending(players)
+
+        manually_sorted_players = [Player(name="Bob", uid='02', score=35), Player(name="Alice", uid='01', score=25),
+                                   Player(name="Charlie", uid='03', score=5)]
+
+        self.assertListEqual(sorted_player_scores, manually_sorted_players)
+
 
 if __name__ == '__main__':
     unittest.main()
