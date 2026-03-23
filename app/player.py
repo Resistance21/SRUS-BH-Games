@@ -42,3 +42,6 @@ class Player:
 
     def __repr__(self):
         return f"{self.__class__.name}(name='{self.name}, uid={self.uid}, score={self.score}"
+
+    def __lt__(self, other):
+        return self.score < other.score

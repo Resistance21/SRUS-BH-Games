@@ -118,8 +118,8 @@ What is the **only** magic method that must be implemented in the player class f
 
 **Hint:** if you don't recall this from class, the error message you got when you ran the test will help you.
 -------
-> Answer Here
-> Yes, here - instead of this text!
+> The dunder method that is needed to get sorted(players) to work is the __lt__ dunder method
+> 
 -------
 #### 4.3.2. Task: Implement the magic method in the Player class
 
@@ -140,7 +140,16 @@ def test_players_can_be_compared_by_score(self):
 Run the test and confirm that your error resembles the previous error
 
 ```text
-INSERT ERROR OUTPUT HERE
+======================================================================
+ERROR: test_players_can_be_compared_by_score (test.player_test.TestPlayerClass.test_players_can_be_compared_by_score)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\test\player_test.py", line 51, in test_players_can_be_compared_by_score
+    self.assertGreater(alice, bob)
+  File "C:\Program Files\Python312\Lib\unittest\case.py", line 1267, in assertGreater
+    if not a > b:
+           ^^^^^
+TypeError: '>' not supported between instances of 'Player' and 'Player'
 ```
 
 - Implement the appropriate magic method in the Player class and ensure you pass this test
