@@ -326,7 +326,32 @@ Create a test case that tries to sort 1000 players that are already sorted.
 If you get a failure, include the failure below:
 
 ```text
-YOUR FAILURE HERE
+======================================================================
+ERROR: test_1000_players_with_already_sorted_scores (test.player_test.TestPlayerClass.test_1000_players_with_already_sorted_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\test\player_test.py", line 75, in test_1000_players_with_already_sorted_scores
+    sorted_players = Player.sort_scores_descending(players)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\app\player.py", line 48, in sort_scores_descending
+    return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\app\player.py", line 48, in sort_scores_descending
+    return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\app\player.py", line 48, in sort_scores_descending
+    return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 981 more times]
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\app\player.py", line 44, in sort_scores_descending
+    if x > pivot:
+       ^^^^^^^^^
+  File "C:\Users\20167808\source\repo\advanced programming\assignment 2\SRUS-BH-Games\app\player.py", line 61, in __lt__
+    return self.score < other.score
+           ^^^^^^^^^^
+RecursionError: maximum recursion depth exceeded
+
+----------------------------------------------------------------------
 ```
 
 ##### 5.3.4.1 Question: Why does the algorithm fail on presorted values?
@@ -335,13 +360,62 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
-> Answer here
+> The reason that my algorithm hit the maximum recursion depth exceeded error is because the algorithm set the pivot point
+> as the first item in the array of players, when the array is pre sorted the first item is the highest score in the list which means that
+> the scores are never broken down into left and right arrays, which means that on each recursion layer only one item is removed as the pivot just becomes the next highest score.
+> since the player list is of 1000 players this means that the internal recursion layer limit of 1000 in python is hit with this algorithm
 
 Propose a fix to your sorting algorithm that fixes this issue.
 
 ```python
-# YOUR FIX HERE
-# Highlight what the fix was
+import random
+
+@classmethod
+    def sort_scores_descending(cls, arr):
+        if len(arr) <= 1:
+            return arr
+        pivot_point = random.randint(0, len(arr)-1)
+        pivot = arr[pivot_point]
+        left = []
+        right = []
+        middle = []
+        for x in arr:
+            if x > pivot:
+                left.append(x)
+            elif x < pivot:
+                right.append(x)
+            else:
+                middle.append(x)
+        return cls.sort_scores_descending(left) + middle + cls.sort_scores_descending(right)
+'''
+The highlights as to why this fixes the problem with the old algorithm:
+I first import random into the player class so that I can setup picking a random number to be the pivot point
+based on the array length, this is to set up the best chance of not selecting the highest or lowest score in the player
+list
+
+the code that sets this up is:
+pivot_point = random.randint(0, len(arr)-1)
+
+I then set the pivot point to this item in the array:
+pivot = arr[pivot_point]
+
+I now add a new array to called middle, this is to handle any scores that are
+the same as the pivot points' score:
+middle = []
+
+I then update the check for which array the current player needs to be added to
+with a new check to add any matching score into he middle array.
+if x > pivot:
+        left.append(x)
+elif x < pivot:
+    right.append(x)
+else:
+    middle.append(x)
+
+Lastly I update the return to include the middle array instead of just using the old pivot point
+value:
+return cls.sort_scores_descending(left) + middle + cls.sort_scores_descending(right)
+'''
 ```
 
 #### 5.3.5. Success criteria

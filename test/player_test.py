@@ -70,6 +70,14 @@ class TestPlayerClass(unittest.TestCase):
 
         self.assertEqual(sorted_players,already_sorted_players)
 
+    def test_1000_players_with_already_sorted_scores(self):
+        players = [Player(name=f"Player {i}", uid=f"{i:03}", score=i) for i in range(1000)]
+        sorted_players = Player.sort_scores_descending(players)
+
+        already_sorted_players = sorted(players, reverse=True)
+
+        self.assertEqual(sorted_players,already_sorted_players)
+
 
 if __name__ == '__main__':
     unittest.main()

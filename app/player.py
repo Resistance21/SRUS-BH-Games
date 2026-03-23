@@ -1,6 +1,8 @@
 """
 Player class that sets up user id and name
 """
+import random
+from msilib import make_id
 
 
 class Player:
@@ -37,15 +39,19 @@ class Player:
     def sort_scores_descending(cls, arr):
         if len(arr) <= 1:
             return arr
-        pivot = arr[0]
+        pivot_point = random.randint(0, len(arr)-1)
+        pivot = arr[pivot_point]
         left = []
         right = []
-        for x in arr[1:]:
+        middle = []
+        for x in arr:
             if x > pivot:
                 left.append(x)
-            else:
+            elif x < pivot:
                 right.append(x)
-        return cls.sort_scores_descending(left) + [pivot] + cls.sort_scores_descending(right)
+            else:
+                middle.append(x)
+        return cls.sort_scores_descending(left) + middle + cls.sort_scores_descending(right)
 
     def __hash__(self):
         return self.string_or_player_hash(self.uid)
@@ -59,6 +65,9 @@ class Player:
 
     def __lt__(self, other):
         return self.score < other.score
+
+    def __gt__(self, other):
+        return self.score > other.score
 
     def __eq__(self, other):
         return self.score == other.score
