@@ -298,7 +298,13 @@ Include your test case below:
 
 ```python
 
-# YOUR TEST CASE HERE
+    def test_1000_players_with_random_scores(self):
+        players = [Player(name=f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+        sorted_players = Player.sort_scores_descending(players)
+
+        already_sorted_players = sorted(players, reverse=True)
+
+        self.assertEqual(sorted_players,already_sorted_players)
 
 ```
 
