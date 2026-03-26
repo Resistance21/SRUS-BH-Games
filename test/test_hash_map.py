@@ -1,9 +1,19 @@
+"""
+hash map class test cases
+to  run test use
+while in root folder
+python -m unittest -v test.test_hash_map
+
+"""
+
 import unittest
 # from app.player import Player
-#from app.player_list import PlayerList
+# from app.player_list import PlayerList
 # from app.player_node import PlayerNode
 from app.hash_map import PlayerHashMap
-#from typing import cast
+# from typing import cast
+import io
+import contextlib
 
 
 class TestHashMap(unittest.TestCase):
@@ -69,3 +79,32 @@ class TestHashMap(unittest.TestCase):
 
         del self.player_hash_map['1']
         self.assertTrue(self.player_hash_map.hashmap[hash_index].is_empty())
+
+    def test_display_of_hashmap(self):
+        test_hash = PlayerHashMap()
+
+        # creating the test players to put in both hash maps
+        for i in range(25):
+            self.player_hash_map[i] = f"Player {i}"
+            test_hash[i] = f"Player {i}"
+
+        # creating a buffer to store the output of the
+        # test_hash
+        test_hash_buffer = io.StringIO()
+        # capturing the text into the buffer
+        with contextlib.redirect_stdout(test_hash_buffer):
+            test_hash.display()
+        # storing the buffer value go test later
+        test_hash_output = test_hash_buffer.getvalue()
+
+        # creating a buffer to store the output of the
+        # self.player_hash
+        player_hash_buffer = io.StringIO()
+        # capturing the text into the buffer
+        with contextlib.redirect_stdout(player_hash_buffer):
+            self.player_hash_map.display()
+        # storing the buffer value go test later
+        player_hash_output = player_hash_buffer.getvalue()
+
+        # comparing the buffer values
+        self.assertEqual(test_hash_output, player_hash_output)

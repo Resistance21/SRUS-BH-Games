@@ -1,14 +1,22 @@
+"""
+Player hash map calss that handles the creation of PlayerLists
+into a map of size 10 for storing all players based on their hash
+"""
+
 from app.player_list import PlayerList
 from app.player import Player
 from app.player_node import PlayerNode
 
 
 class PlayerHashMap:
+    # size of map
     SIZE: int = 10
 
+    # initialisation
     def __init__(self):
         self.hashmap = [PlayerList() for _ in range(self.SIZE)]
 
+    # gets the length of the total number of players
     def __len__(self):
         player_count = 0
         for player_list in self.hashmap:
@@ -28,6 +36,7 @@ class PlayerHashMap:
 
         return player_count
 
+    # get the player that is being searched for
     def __getitem__(self, key: str):
         hash_index = self.get_index(key)
         player_list = self.hashmap[hash_index]
@@ -44,6 +53,7 @@ class PlayerHashMap:
             else:
                 return None
 
+    # updates an exsiting player other wise adds a new player
     def __setitem__(self, key: str, name: str):
         hash_index = self.get_index(key)
         player_list = self.hashmap[hash_index]
@@ -62,6 +72,7 @@ class PlayerHashMap:
 
         self.hashmap[hash_index].insert_node(PlayerNode(Player(key, name)))
 
+    # deletes the giving player if there is one
     def __delitem__(self, key: str):
         hash_index = self.get_index(key)
         player_list = self.hashmap[hash_index]
@@ -71,12 +82,14 @@ class PlayerHashMap:
 
         player_list.delete_player_at_key(key)
 
+    # get which player list the player is stored in
     def get_index(self, key: str | PlayerNode) -> int:
         if isinstance(key, PlayerNode):
             return hash(key.player) % self.SIZE
         else:
             return Player.string_or_player_hash(key) % self.SIZE
 
+    # displayer all current PlayerList and the player inside each one
     def display(self):
         for index, player_list in enumerate(self.hashmap):
             if player_list.is_empty():
@@ -85,24 +98,3 @@ class PlayerHashMap:
             print(f'Player list at index: {index}')
             player_list.display()
             print('\n')
-
-
-# player_map = PlayerHashMap()
-
-# player_map["1"] = 'test player'
-# player_map["11"] = 'test player'
-# player_map["111"] = 'test player'
-# player_map["1111"] = 'test player'
-# player_map["11111"] = 'test player'
-# player_map["2"] = 'test player'
-# player_map["22"] = 'test player'
-# player_map["33"] = 'test player'
-# player_map["4"] = 'test player'
-# player_map["5555"] = 'test player'
-# player_map["6"] = 'test player'
-# player_map["7"] = 'test player'
-# del player_map['67']
-
-# player_map.display()
-
-# print(len(player_map))

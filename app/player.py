@@ -2,7 +2,7 @@
 Player class that sets up user id and name
 """
 import random
-from msilib import make_id
+# from msilib import make_id
 
 
 class Player:
