@@ -2,7 +2,7 @@ from .player import Player
 
 
 class PlayerBNode:
-    def __int__(self, player: Player):
+    def __init__(self, player: Player):
         self._player = player
         self._left = None
         self._right = None
@@ -12,11 +12,12 @@ class PlayerBNode:
         return self._player
     
     @player.setter
-    def player(self, right: Player):
-        self._right = right
+    def player(self, player: Player):
+        self._player = player
+
     @property
     def right(self):
-        return self._player
+        return self._right
     
     @right.setter
     def right(self, right: Player):
@@ -24,7 +25,7 @@ class PlayerBNode:
 
     @property
     def left(self):
-        return self._player
+        return self._left
     
     @left.setter
     def left(self, left: Player):
