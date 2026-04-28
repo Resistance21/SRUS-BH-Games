@@ -75,16 +75,13 @@ class TestPlayerBST(unittest.TestCase):
             return
 
         def _tree_travel(tree: PlayerBNode):
-            if tree.left is None:
-                return
+            if tree.left is not None:
+                return _tree_travel(tree.left)
                          
-            _tree_travel(tree.left)
-
             result.append(tree.player.name)
 
-            if tree.right is None:
-                return
-            _tree_travel(tree.right)
+            if tree.right is not None:
+                return _tree_travel(tree.right)
 
         _tree_travel(tree.root)
         return result
@@ -117,3 +114,33 @@ class TestPlayerBST(unittest.TestCase):
 
         found_player = self.tree.search('Jerry Maddox')
         self.assertEqual('Jerry Maddox', found_player.name)
+
+    def test_tree_search_player_not_found(self):
+        found_player = self.tree.search('Howell')
+        self.assertEqual(None, found_player)
+
+        found_player = self.tree.search('Kobe Goodman')
+        self.assertNotEqual('Kobe Goodman', None)
+
+        found_player = self.tree.search(' Ward')
+        self.assertEqual(None, found_player)
+
+        found_player = self.tree.search('Jerry Maddox')
+        self.assertNotEqual('Jerry Maddox', None)
+
+    def test_tree_balance(self):
+        tree = PlayerBST()
+        tree.insert(Player("12", "test", "321"))
+        tree.insert(Player("13", "asdwe", "321"))
+        tree.insert(Player("14", "zxczx", "321"))
+        tree.insert(Player("15", "dfgd", "321"))
+        tree.insert(Player("16", "asdasdasd", "321"))
+        tree.insert(Player("17", "qweqdasd", "321"))
+
+        sorted_players = tree.tree_in_order()
+        other_player_sort = sorted(sorted_players, key=lambda p: p.name)
+        self.assertTrue(all(a.name == b.name for a, b 
+                            in zip(sorted_players, other_player_sort)))
+
+        tree.balance()
+        self.assertEqual(tree.root.player.name, 'dfgd')

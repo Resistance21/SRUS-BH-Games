@@ -60,16 +60,43 @@ class PlayerBST:
             if name > node.player.name:
                 return _find_name(name, node.right)
         
-        return _find_name(name, self.root)
+        returned_player = _find_name(name, self.root)
+        if returned_player is None:
+            return None
+        return returned_player
+    
+    def balance(self):
+        orderd_tree = self.tree_in_order()
 
+        def tree_build(tree_list):
+            if not tree_list:
+                return
+            
+            mid_point = (len(tree_list)-1) // 2
+            left_point = tree_list[:mid_point]
+            right_point = tree_list[mid_point + 1:]
+            
+            node = PlayerBNode(tree_list[mid_point])
+            node.left = tree_build(left_point)
+            node.right = tree_build(right_point)
+            return node
+        
+        self.root = tree_build(orderd_tree)
+        
+    def tree_in_order(self):
+        result = []
 
-# tree = PlayerBST()
-# tree.insert(Player("12", "test", "321"))
-# tree.insert(Player("13", "asdwe", "321"))
-# tree.insert(Player("14", "zxczx", "321"))
-# tree.insert(Player("15", "dfgd", "321"))
-# tree.insert(Player("16", "asdasdasd", "321"))
-# tree.insert(Player("17", "qweqdasd", "321"))
+        if self.root is None:
+            return
 
-# player = tree.search("asdasdasd")
-# print("player", player)
+        def _tree_travel(node: PlayerBNode):
+            if node.left is not None:
+                _tree_travel(node.left)
+                         
+            result.append(node.player)
+
+            if node.right is not None:
+                _tree_travel(node.right)
+
+        _tree_travel(self.root)
+        return result
