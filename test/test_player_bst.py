@@ -60,14 +60,14 @@ class TestPlayerBST(unittest.TestCase):
         name_list = [name.strip() for name in self.names.splitlines()
                      if name.strip()]
 
-        self.players = [Player(str(i), name, str(i + 100)) 
+        self.players = [Player(str(i), name, str(i + 100))
                         for i, name in enumerate(name_list)]
-        
+
         self.tree = PlayerBST()
 
         for player in self.players:
             self.tree.insert(player)
-    
+
     def tree_in_order(self, tree: PlayerBST):
         result = []
 
@@ -77,7 +77,7 @@ class TestPlayerBST(unittest.TestCase):
         def _tree_travel(tree: PlayerBNode):
             if tree.left is not None:
                 return _tree_travel(tree.left)
-                         
+
             result.append(tree.player.name)
 
             if tree.right is not None:
@@ -85,12 +85,12 @@ class TestPlayerBST(unittest.TestCase):
 
         _tree_travel(tree.root)
         return result
-       
+
     def test_tree_insert(self):
         test_tree = PlayerBST()
         test_names = [name.strip() for name in self.names.splitlines()
                       if name.strip()]
-        test_players = [Player(str(i), name, str(i + 100)) 
+        test_players = [Player(str(i), name, str(i + 100))
                         for i, name in enumerate(test_names)]
 
         for player in test_players:
@@ -139,7 +139,7 @@ class TestPlayerBST(unittest.TestCase):
 
         sorted_players = tree.tree_in_order()
         other_player_sort = sorted(sorted_players, key=lambda p: p.name)
-        self.assertTrue(all(a.name == b.name for a, b 
+        self.assertTrue(all(a.name == b.name for a, b
                             in zip(sorted_players, other_player_sort)))
 
         tree.balance()
